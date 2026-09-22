@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('productions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            $table->foreignId('operator_id')->nullable()->constrained('users');
+            $table->enum('status', ['verifikasi', 'persetujuan_desain', 'proses_produksi', 'finishing', 'quality_check', 'siap_dikirim'])->default('verifikasi');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
